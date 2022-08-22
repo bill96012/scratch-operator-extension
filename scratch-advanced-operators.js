@@ -115,6 +115,39 @@ class ScratchAdvancedOperators {
             }
           }
         },
+        {
+          opcode: 'characterIsEnglishAlphabet',
+          blockType: Scratch.BlockType.BOOLEAN,
+          text: 'character [INPUT] is an English alphabet?',
+          arguments: {
+            INPUT: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: 'a'
+            }
+          }
+        },
+        {
+          opcode: 'characterIsUpperCase',
+          blockType: Scratch.BlockType.BOOLEAN,
+          text: 'character [INPUT] is uppercase?',
+          arguments: {
+            INPUT: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: 'A'
+            }
+          }
+        },
+        {
+          opcode: 'characterIsLowerCase',
+          blockType: Scratch.BlockType.BOOLEAN,
+          text: 'character [INPUT] is lowercase?',
+          arguments: {
+            INPUT: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: 'a'
+            }
+          }
+        },
         '---',
         {
           opcode: 'slice',
@@ -345,6 +378,30 @@ class ScratchAdvancedOperators {
   
   isNumber({INPUT}) {
     return !(isNaN(INPUT) || INPUT === '');
+  }
+
+  characterIsEnglishAlphabet({INPUT}) {
+    INPUT = String(INPUT);
+    if(INPUT === '') return false;
+    return /([A-Z]|[a-z])+/g.test(INPUT[0]);
+  }
+
+  characterIsUpperCase({INPUT}) {
+    if(this.characterIsEnglishAlphabet({INPUT: INPUT})) {
+      INPUT = String(INPUT);
+    } else {
+      return false;
+    }
+    return (INPUT[0].toUpperCase() === INPUT[0] && INPUT[0] !== INPUT.toLowerCase());
+  }
+
+  characterIsLowerCase({INPUT}) {
+    if(this.characterIsEnglishAlphabet({INPUT: INPUT})) {
+      INPUT = String(INPUT);
+    } else {
+      return false;
+    }
+    return (INPUT[0].toLowerCase() === INPUT[0] && INPUT[0] !== INPUT.toUpperCase());
   }
 
   slice({STRING, INDEX_BEGIN, INDEX_END}) {
