@@ -405,11 +405,13 @@ class ScratchAdvancedOperators {
   }
 
   slice({STRING, INDEX_BEGIN, INDEX_END}) {
+    STRING = String(STRING);
     if(INDEX_BEGIN === 0 || INDEX_BEGIN === '') return STRING;
     return INDEX_END === '' || (INDEX_END < 0 && INDEX_END + 1 === 0) ? STRING.slice(INDEX_BEGIN < 0 ? INDEX_BEGIN : INDEX_BEGIN - 1) : STRING.slice(INDEX_BEGIN < 0 ? INDEX_BEGIN : INDEX_BEGIN - 1, INDEX_END < 0 ? INDEX_END + 1 : INDEX_END);
   }
 
   replace({STRING, INDEX, PATTERN, REPLACEMENT}) {
+    STRING = String(STRING);
     if(STRING === '' || PATTERN === '' || REPLACEMENT === PATTERN) return STRING;
     if(INDEX === '') {
       INDEX = 0;
@@ -427,36 +429,44 @@ class ScratchAdvancedOperators {
   }
 
   repeat({STRING, COUNT}) {
+    STRING = String(STRING);
     return STRING.repeat(COUNT);
   }
 
   reverse({STRING}) {
+    STRING = String(STRING);
     return STRING.split('').reverse().join('');
   }
   
   toUpperCase({STRING}) {
+    STRING = String(STRING);
     return STRING.toUpperCase();
   }
   
   toLowerCase({STRING}) {
+    STRING = String(STRING);
     return STRING.toLowerCase();
   }
   
   capitalize({STRING}) {
+    STRING = String(STRING);
     if(STRING === '') return STRING;
     return `${STRING[0].toUpperCase()}${STRING.slice(1)}`;
   }
   
   count({STRING, PATTERN}) {
+    STRING = String(STRING);
     if(STRING === '') return 0;
     return STRING.split(PATTERN).length - 1;
   }
   
   includes({STRING, PATTERN}) {
+    STRING = String(STRING);
     return STRING.includes(PATTERN);
   }
   
   getLine({STRING, LINE_NUMBER}) {
+    STRING = String(STRING);
     if(STRING === '' || LINE_NUMBER === '' || LINE_NUMBER == 0) return STRING;
     let result = STRING.split('\n');
     if(Math.abs(LINE_NUMBER) >= result.length) return '';
@@ -464,6 +474,7 @@ class ScratchAdvancedOperators {
   }
   
   capitalizeLine({STRING}) {
+    STRING = String(STRING);
     if(STRING === '') return STRING;
     return STRING
       .split('\n')
