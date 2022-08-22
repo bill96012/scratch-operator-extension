@@ -468,8 +468,13 @@ class ScratchAdvancedOperators {
   getLine({STRING, LINE_NUMBER}) {
     STRING = String(STRING);
     if(STRING === '' || LINE_NUMBER === '' || LINE_NUMBER == 0) return STRING;
-    let result = STRING.split('\n');
-    if(Math.abs(LINE_NUMBER) >= result.length) return '';
+    let result;
+    if(STRING.includes('\n')) {
+      result = STRING.split('\n');
+    } else {
+      result = [STRING];
+    }
+    if(Math.abs(LINE_NUMBER) > result.length) return '';
     return result[LINE_NUMBER < 0 ? result.length + LINE_NUMBER : LINE_NUMBER - 1];
   }
   
